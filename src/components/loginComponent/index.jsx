@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Mensajes from './mensajes'
 import Titulo from './titulo'
+import Formulario from './formulario'
 
 import { Card } from 'react-bootstrap'
 
@@ -15,17 +16,24 @@ export default class LoginComponent extends Component {
                     'titulo': 'Ha ocurrido un problema',
                     'cuerpo': 'Las credenciales otorgadas, no son correctas.',
                 }
-            ]
+            ],
+            tieneMensajes: false
         }
     }
 
+    manejaClick(evento){
+
+    }
+
     render(){
-        const { mensajes } = this.state
+        const { mensajes, tieneMensajes } = this.state
         return (
             <Card>
                 <Card.Header><Titulo /></Card.Header>
-                <Card.Body></Card.Body>
-                <Card.Footer><Mensajes mensajes={mensajes}/></Card.Footer>
+                <Card.Body> <Formulario manejaClick={this.manejaClick.bind(this)} /> </Card.Body>
+                <Card.Footer>
+                    { tieneMensajes? <Mensajes mensajes={mensajes} /> : <div></div> }
+                </Card.Footer>
             </Card>
         )
     }
