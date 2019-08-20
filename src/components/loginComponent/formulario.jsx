@@ -35,7 +35,7 @@ export const Formulario = ({manejaClick}) => {
             <Button 
                 variant="danger" 
                 type="button" 
-                onClick={() => setValidar(true)}>Ingresar</Button>
+                onClick={() => setValidar(true)}>Ingresar_</Button>
         </Form>
     )
 }
