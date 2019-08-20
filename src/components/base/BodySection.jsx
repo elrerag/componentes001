@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import LoginView from '../login/index'
+import LoginComponent from '../loginComponent'
 
 export default class BodySection extends Component {
     constructor(props){
@@ -17,12 +17,7 @@ export default class BodySection extends Component {
         const {estaLogeado} = this.state
         return (
             <div>
-                {estaLogeado?
-                    <p>Logeado</p>:
-                    <LoginView 
-                        estaLogeado={this.state.estaLogeado}
-                        manejaLogeo={this.manejaLogeo.bind(this)} />
-                } 
+                <LoginComponent />
             </div>
         ) 
         
