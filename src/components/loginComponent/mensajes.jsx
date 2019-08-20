@@ -1,12 +1,17 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Alert } from 'react-bootstrap'
 
 const Alerta = ({elemento}) => {
+    const [mostrar, setMostrar] = useState(true)
     return (
-        <Alert variant={ elemento.variant } dismissible>
-        <Alert.Heading>{ elemento.titulo }</Alert.Heading>
-        <p>{ elemento.cuerpo }</p>
-    </Alert>
+        mostrar?
+        <Alert 
+            onClose={() => setMostrar(false)}
+            variant={ elemento.variant } 
+            dismissible >
+            <Alert.Heading>{ elemento.titulo }</Alert.Heading>
+            <p>{ elemento.cuerpo }</p>
+        </Alert>: <div></div>
     )
 }
 
