@@ -44,7 +44,7 @@ export class Formulario extends Component {
                     <Form.Control
                         required
                         type="password"
-                        placeholder="Ingrese su correo" />
+                        placeholder="Ingrese su contraseña" />
                         <Form.Text className="text-muted">* cityslicka</Form.Text>
                     <Form.Control.Feedback type="invalid">
                         Por favor ingrese una contraseña

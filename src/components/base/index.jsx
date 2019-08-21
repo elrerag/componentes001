@@ -1,13 +1,14 @@
-import React, {Component} from 'react'
-import HeaderSection from './HeaderSection'
-import BodySection from './BodySection'
+import React, {useState} from 'react'
 
+import LoginView from '../loginComponent/loginView'
 
-const BaseSection = () =>
-    <div>
-        <header><HeaderSection /></header>
-        <BodySection />
-        <footer></footer>
-    </div>
+const BaseSection = () => {
+    const [logeado, setLogeado] = useState(false)
+    return(
+        <div>
+            {!logeado? <LoginView /> : <h1>Ingreso al sistema</h1>}
+        </div>
+    )
+}
 
 export default BaseSection

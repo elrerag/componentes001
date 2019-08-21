@@ -13,6 +13,8 @@ import Titulo from './titulo'
 import Formulario from './formulario'
 import axios from 'axios'
 
+import { MyCSSTransition } from './animaciones/loginEffects'
+
 import { Card } from 'react-bootstrap'
 import Mensaje from './mensaje';
 
@@ -79,11 +81,12 @@ export default class LoginComponent extends Component {
                         manejaClick={this.manejaClickIngresar.bind(this)} /> 
                 </Card.Body>
                 <Card.Footer>
-                    { 
+                    <MyCSSTransition mostrarTransicion={muestraMensaje}>
+
                         <Mensaje 
                             muestraMensaje = {muestraMensaje}
                             manejaMuestraMensaje={this.manejaMuestraMensaje.bind(this)}/>
-                    }
+                    </MyCSSTransition>    
                 </Card.Footer>
             </Card>
         )
