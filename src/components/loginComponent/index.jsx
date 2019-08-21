@@ -4,35 +4,34 @@
  *  Estados: [
  *      mensajes: Lista de mensajes que serán desplegados. Contiene los datos
  *                datos que necesita el componente que lo utiliza.
- *      tieneMensajes: Booleano que indica si los mensajes se muestran o no.
+ *      tieneMensaje: Booleano que indica si los mensajes se muestran o no.
  *  ]
  */
 
 import React, { Component } from 'react'
-import Mensajes from './mensajes'
 import Titulo from './titulo'
 import Formulario from './formulario'
 import axios from 'axios'
 
 import { Card } from 'react-bootstrap'
+import Mensaje from './mensaje';
 
 
 export default class LoginComponent extends Component {
     constructor(props){
         super(props)
         this.state = {
-            mensajes: [
-                {
-                    'variant': 'danger',
-                    'titulo': 'Ha ocurrido un problema',
-                    'cuerpo': 'Las credenciales otorgadas, no son correctas.',
-                }
-            ],
-            tieneMensajes: false
+            muestraMensaje: false,
+            cargando: false
         }
     }
-    manejaMensajes(estado){
-        this.setState({tieneMensajes: estado})
+
+    manejaMuestraMensaje(estado){
+        this.setState({muestraMensaje: estado})
+    }
+
+    manejaCargando(estado) {
+        this.setState({cargando: estado})
     }
 
     manejaRequest(formulario) {
@@ -44,28 +43,37 @@ export default class LoginComponent extends Component {
                 "email": iptUsuario.value,
                 "password": iptontrasenia.value
             })
+            .then(() => this.manejaCargando(false))
             .then(res => {
-                (res.data.token==="QpwL5tke4Pnpja7X4")?console.log("LOGEADO"):this.manejaMensajes(true)
-
+                (res.data.token==="QpwL5tke4Pnpja7X4")?console.log("LOGEADO"):this.manejaMuestraMensaje(true)
             })
             .catch(err => {
-                this.manejaMensajes(true)
+                this.manejaMuestraMensaje(true)
+                this.manejaCargando(false)
             })
     }
 
     manejaClickIngresar(evento){
+        this.manejaCargando(true)
         this.manejaRequest( evento.target.parentElement )
-
     }
 
     render(){
-        const { mensajes, tieneMensajes } = this.state
+        const { muestraMensaje, cargando } = this.state
         return (
             <Card>
                 <Card.Header><Titulo /></Card.Header>
-                <Card.Body> <Formulario manejaClick={this.manejaClickIngresar.bind(this)} /> </Card.Body>
+                <Card.Body> 
+                    <Formulario 
+                        estaCargando = {cargando}
+                        manejaClick={this.manejaClickIngresar.bind(this)} /> 
+                </Card.Body>
                 <Card.Footer>
-                    { tieneMensajes? <Mensajes mensajes={mensajes} /> : <div></div> }
+                    { 
+                        <Mensaje 
+                            muestraMensaje = {muestraMensaje}
+                            manejaMuestraMensaje={this.manejaMuestraMensaje.bind(this)}/>
+                    }
                 </Card.Footer>
             </Card>
         )

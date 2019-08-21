@@ -14,14 +14,19 @@ export class Formulario extends Component {
     preManejaClick(evento) {
         const { manejaClick } = this.props
         const { validar } = this.state
-        manejaClick(evento)
         if(!validar){
             this.setState({validar: true})
         }
+        if(evento.target.parentElement.checkValidity()){
+            manejaClick(evento)
+            
+        }
+        
     }
 
     render(){
         const { validar } = this.state
+        const { estaCargando } = this.props
         return(
             <Form noValidate validated={validar} >
                 <Form.Group controlId="usuario">
@@ -52,7 +57,7 @@ export class Formulario extends Component {
                 <Button 
                     variant="danger"  
                     type="button" 
-                    onClick={ this.preManejaClick.bind(this) }>Ingresar</Button>
+                    onClick={ this.preManejaClick.bind(this) }>{estaCargando?'cargando...':'Ingresar'}</Button>
             </Form>
         )
 
