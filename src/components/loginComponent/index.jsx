@@ -22,7 +22,8 @@ export default class LoginComponent extends Component {
         super(props)
         this.state = {
             muestraMensaje: false,
-            cargando: false
+            cargando: false,
+            muestraValidaForm: false
         }
     }
 
@@ -34,6 +35,10 @@ export default class LoginComponent extends Component {
         this.setState({cargando: estado})
     }
 
+    manejaMuestraValidaForm(estado) {
+        this.setState({muestraValidaForm: estado})
+    }
+
     manejaRequest(formulario) {
         const iptUsuario = formulario.elements[0]
         const iptontrasenia = formulario.elements[1]
@@ -43,10 +48,10 @@ export default class LoginComponent extends Component {
                 "email": iptUsuario.value,
                 "password": iptontrasenia.value
             })
-            .then(() => this.manejaCargando(false))
             .then(res => {
                 (res.data.token==="QpwL5tke4Pnpja7X4")?console.log("LOGEADO"):this.manejaMuestraMensaje(true)
             })
+            .then(() => this.manejaCargando(false))
             .catch(err => {
                 this.manejaMuestraMensaje(true)
                 this.manejaCargando(false)
@@ -56,15 +61,19 @@ export default class LoginComponent extends Component {
     manejaClickIngresar(evento){
         this.manejaCargando(true)
         this.manejaRequest( evento.target.parentElement )
+        this.manejaMuestraValidaForm(false)
+        
     }
 
     render(){
-        const { muestraMensaje, cargando } = this.state
+        const { muestraValidaForm, muestraMensaje, cargando } = this.state
         return (
             <Card>
                 <Card.Header><Titulo /></Card.Header>
                 <Card.Body> 
                     <Formulario 
+                        muestraValidaForm = {muestraValidaForm}
+                        manejaMuestraValidaForm = {this.manejaMuestraValidaForm.bind(this)}
                         estaCargando = {cargando}
                         manejaClick={this.manejaClickIngresar.bind(this)} /> 
                 </Card.Body>

@@ -6,29 +6,25 @@ import { Form, Button } from 'react-bootstrap'
 export class Formulario extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            validar: false
-        }
+        this.state = {}
     }
 
     preManejaClick(evento) {
-        const { manejaClick } = this.props
-        const { validar } = this.state
-        if(!validar){
-            this.setState({validar: true})
-        }
+        const { manejaMuestraValidaForm, manejaClick } = this.props
+        
         if(evento.target.parentElement.checkValidity()){
             manejaClick(evento)
             
+        }else{
+            manejaMuestraValidaForm(true)
         }
         
     }
 
     render(){
-        const { validar } = this.state
-        const { estaCargando } = this.props
+        const { muestraValidaForm, estaCargando } = this.props
         return(
-            <Form noValidate validated={validar} >
+            <Form noValidate validated={muestraValidaForm} >
                 <Form.Group controlId="usuario">
                     <Form.Label>Usuario</Form.Label>
                     <Form.Control
