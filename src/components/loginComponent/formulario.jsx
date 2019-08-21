@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import MyDotLoader from './animaciones/loginEffects'
 
 import { Form, Button } from 'react-bootstrap'
 
@@ -53,7 +54,12 @@ export class Formulario extends Component {
                 <Button 
                     variant="danger"  
                     type="button" 
-                    onClick={ this.preManejaClick.bind(this) }>{estaCargando?'cargando...':'Ingresar'}</Button>
+                    onClick={ this.preManejaClick.bind(this) }>
+                        {
+                            estaCargando?
+                            <MyDotLoader size={30} color={'white'}/>
+                            :'Ingresar'
+                        }</Button>
             </Form>
         )
 

@@ -52,6 +52,7 @@ export default class LoginComponent extends Component {
                 (res.data.token==="QpwL5tke4Pnpja7X4")?console.log("LOGEADO"):this.manejaMuestraMensaje(true)
             })
             .then(() => this.manejaCargando(false))
+            .then(() => this.manejaMuestraMensaje(false))
             .catch(err => {
                 this.manejaMuestraMensaje(true)
                 this.manejaCargando(false)

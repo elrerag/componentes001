@@ -13,13 +13,13 @@ const override = css`
     border-color: black;
 `;
 
-export const MyDotLoader = () => 
+export const MyDotLoader = ({size, color}) => 
     <div className='sweet-loading'>
         <DotLoader
             css={override}
             sizeUnit={"px"}
-            size={30}
-            color={'red'}
+            size={size}
+            color={color}
             loading={true}/>
     </div> 
 
